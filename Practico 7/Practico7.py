@@ -81,12 +81,15 @@ while(run == True):
     if k == ord('a'):
         origin = selection(backup.copy(),3)  #We pass the image and receive the tupple with the point's coordinates.
         final = selection(img1.copy(),3)
+        img = backup.copy()
+        img1 = backup1.copy()
         img = warp(img, origin, final) #Here we send the source and destiny points to warp function.
         img2gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  #We converte the image to B&W in order to apply a thershold to it.
+        blurred = cv2.blur(img2gray, (20,20))
         #In order to layer up two images we need to treshold the upper layer (already in B&W), which returns 0's and 1's values,
         #being 0 the black pixels and 1 the white ones. Thus when adding both pics together we'll add up all but the black pixels.
-        ret,mask = cv2.threshold(img2gray, 100, 255, cv2.THRESH_BINARY ) #We apply the threshold, where img2gray is our B&W pic, the two following parameters are the colour limits, and the last part is the threshold type.
-        ret,mask_inv = cv2.threshold(img2gray, 100, 255, cv2.THRESH_BINARY_INV ) 
+        ret,mask = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY ) #We apply the threshold, where img2gray is our B&W pic, the two following parameters are the colour limits, and the last part is the threshold type.
+        ret,mask_inv = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY_INV ) 
         img2 = cv2.bitwise_and(img1, img1, mask=mask)  #We apply an and between two top layers, including the threshold mask.
         img3 = cv2.bitwise_and(img, img, mask=mask_inv)
         img = cv2.add(img2, img3) #Finally we add up both pictures in order to get our final result.
