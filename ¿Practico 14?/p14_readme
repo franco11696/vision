@@ -1,0 +1,18 @@
+Buenas! Buscando información para realizar el práctico 12/13 me topé con este collab que me pareció muy interesante y quería compartirlo con la cátedra. En resumen
+se utiliza VQGAN en conjunto con CLIP para generar imágenes y videos en base a una frase que nosotros brindamos como input (mindblowing). 
+
+Básicamente se usa VQGAN (una red neuronal adversa) que permite generar imágenes de alta resolución, a diferencia de otras redes como ser GPT. Para este caso la red
+genera un "codebook" o conjunto de vectores comprimidos. Dentro de estos se almacenan elementos de la imágen analizada que la red considera importantes al momento
+de procesarla. Por ende, su modo de funcionamiento consiste en tomar un gran numero de imágenes, descomponerlas en diferentes patrones que la red haya detectado y
+generar un codebook compuesto de elementos comunes a estas imágenes, lo que le permitirá realizar una recomposición/regeneración de las mismas. Se puede encontrar
+mucha mas información al respescto en el paper dentro del siguiente link: https://compvis.github.io/taming-transformers/
+
+Todo lo anterior se combina junto con CLIP ("Contrastive Language Image Pretraining"), el cual actua como supervisor para verificar si el resultado generado por
+VQGAN se aproxima a la descripción dada como texto en el input, permitiéndonos escribir una expresión y obtener una representación gráfica de la misma.
+
+En mi caso la frase de input que utilicé "flying cars", y al cabo de 90 minutos de entrenamiento la imágen resultante fue la que adjunté en la carpeta. Si bien
+podemos ver que el resultado no es quizás lo que uno se imaginaría, se encuentran presentes muchos elementos relacionados a la frase dada como objetivo, y
+probablemente podría mejorarse la efectividad con un mayor tiempo de ejecución.
+
+Adjunto también el link al collab original, el cual me pareció bastante simple de seguir, además de muy interesante y de permitirnos ver gráficamente y en "tiempo
+real" el proceso de entrenamiento de la red neuronal: https://colab.research.google.com/drive/1go6YwMFe5MX6XM9tv-cnQiSTU50N9EeT#scrollTo=CppIQlPhhwhs
